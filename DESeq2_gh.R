@@ -16,7 +16,7 @@ dds <- DESeqDataSetFromMatrix(countData = cts2,
                               design = ~ type + condition)
 #first term in formula is controlled for, second is tested
 
-dds$condition <- factor(dds$condition, levels = c("minum","media","major"))
+dds$condition <- factor(dds$condition, levels = c("minim","media","major"))
 dds$type <- factor(dds$type, levels = c("Ac22","M1","M2"))
 
 dds <- DESeq(dds)
@@ -28,11 +28,11 @@ write.csv(normcounts,'C:/Users/imura/Documents/grad_4/seq_analysis/deseq2_normco
 res <- results(dds)
 
 #change name(s) based on desired comparison, order matters
-res <- results(dds, name="condition_major_vs_minum")
-res <- results(dds, contrast=c("condition","major","minum"))
+res <- results(dds, name="condition_major_vs_minim")
+res <- results(dds, contrast=c("condition","major","minim"))
 #res
 #Log fold change shrinkage for visualization and ranking
-resLFC <- lfcShrink(dds, coef="condition_major_vs_minum", type="apeglm")
+resLFC <- lfcShrink(dds, coef="condition_major_vs_minim", type="apeglm")
 #resLFC
 
 #Independent hypothesis weighting
