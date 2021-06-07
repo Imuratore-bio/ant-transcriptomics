@@ -90,36 +90,6 @@ pheatmap(assay(vsd)[select,], cluster_rows=FALSE, show_rownames=FALSE,
 pheatmap(assay(rld)[select,], cluster_rows=FALSE, show_rownames=FALSE,
          cluster_cols=FALSE, annotation_col=df)
 
-#for a subset of genes, in this case sensory-related only
-'dds_order <- dds[, c("ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S1_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S2_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S6_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S10_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S13_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S16_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S20_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S21_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S25_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S29_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S3_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S4_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S7_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S8_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S11_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S18_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S19_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S26_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S28_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S5_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S9_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S12_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S22_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S23_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S24_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S27_L001_R1_23", 
-                     +                                    "ensembl_cDNA_output_IDs_merged_merged_merged_LIB042574_TRA00159635_S30_L001_R1_23")]
-'
-
 #most significant genes
 mat <- assay(vsd)[ head(order(res$padj),30), ]
 mat <- mat - rowMeans(mat)
