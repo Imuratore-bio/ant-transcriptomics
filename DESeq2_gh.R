@@ -187,6 +187,8 @@ top_loadings[top_loadings == "XM_012209044.1"] <- "glycoprotein 3-alpha-L-fucosy
 top_loadings[top_loadings == "XM_012209210.1"] <- "prohormone-3"
 top_loadings[top_loadings == "XR_001046523.1"] <- "nuclear pore complex protein DDB_G0274915 homolog, transcript variant X2"
 
+library(ggrepel)
+
 #plot
 ggplot(data = top_loadings) +
   geom_segment(aes(x = 0, y = 0, xend = PC1, yend = PC2), 
