@@ -21,7 +21,8 @@ ggplot(sig_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Significant expression")
 
-#restricted to up genes only
+#restricted to positively size-correlated genes only
+
 majmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_maj_min_no_NA.csv", stringsAsFactors = FALSE)
 majmed <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_maj_med_no_NA.csv", stringsAsFactors = FALSE)
 medmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_med_min_no_NA.csv", stringsAsFactors = FALSE)
@@ -46,7 +47,8 @@ ggplot(growth_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Growth-linked expression")
 
-#restricted to down genes only
+
+#restricted to negatively size-correlated genes only
 majmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_maj_min_no_NA.csv", stringsAsFactors = FALSE)
 majmed <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_maj_med_no_NA.csv", stringsAsFactors = FALSE)
 medmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_med_min_no_NA.csv", stringsAsFactors = FALSE)
@@ -71,7 +73,7 @@ ggplot(down_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Inverse growth expression")
 
-#restricted to u-shaped genes only
+#restricted to media-linked genes only
 majmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_maj_min_no_NA.csv", stringsAsFactors = FALSE)
 majmed <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_maj_med_no_NA.csv", stringsAsFactors = FALSE)
 medmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/padj_med_min_no_NA.csv", stringsAsFactors = FALSE)
@@ -92,6 +94,7 @@ u_nrmcts <- nrmcts[which(row.names(t(nrmcts)) %in% ushape | row.names(t(nrmcts))
 u_nrmcts$AVERAGE <- c(rowMeans(u_nrmcts[ , -which(names(u_nrmcts) %in% c("condition","type"))]))
 
 ggplot(u_nrmcts,aes(condition, AVERAGE)) +
+  #geom_smooth(method='lm') +
   geom_smooth(method='loess') +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Media-biased expression")
@@ -125,8 +128,6 @@ for (row in 1:nrow(majmin)) {
   }
 }
 
-#note: I don't think duplicates matter because we're just checking the original set to see if it's in this created data set
-
 size_nrmcts <- nrmcts[which(row.names(t(nrmcts)) %in% size | row.names(t(nrmcts)) %in% c("sample", "condition", "type") )]
 
 size_nrmcts$AVERAGE <- c(rowMeans(size_nrmcts[ , -which(names(size_nrmcts) %in% c("condition","type"))]))
@@ -136,7 +137,7 @@ ggplot(size_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Size-linked expression")
 
-#restricted to non-size genes only
+#restricted to non-size-linked genes only
 majmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/no_low_padj_maj_min_no_NA.csv")
 majmed <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/no_low_padj_maj_med_no_NA.csv")
 medmin <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/no_low_padj_med_min_no_NA.csv")
@@ -182,7 +183,7 @@ ggplot(sig_sensory_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Significant sensory expression")
 
-#sensory genes only, regardless of sig
+#sensory genes only, regardless of significance
 sensory <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/all_sensory_genes.csv", row.names=1)
 
 sensory_nrmcts <- nrmcts[which(row.names(t(nrmcts)) %in% row.names(sensory) | row.names(t(nrmcts)) %in% c("sample", "condition", "type") )]
@@ -193,7 +194,7 @@ ggplot(sensory_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Sensory-related expression")
 
-#sensory genes only, regardless of sig
+#sensory genes only, regardless of significance
 sensory <- read.csv("C:/Users/imura/Documents/grad_4/seq_analysis/all_sensory_genes.csv", row.names=1)
 
 sensory_nrmcts <- nrmcts[which(row.names(t(nrmcts)) %in% row.names(sensory) | row.names(t(nrmcts)) %in% c("sample", "condition", "type") )]
@@ -201,6 +202,7 @@ sensory_nrmcts$AVERAGE <- c(rowMeans(sensory_nrmcts[ , -which(names(sensory_nrmc
 
 ggplot(sensory_nrmcts,aes(condition, AVERAGE)) +
   geom_smooth(method='lm') +
+  #geom_smooth(method='loess') +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Sensory-related expression")
 
@@ -249,7 +251,7 @@ ggplot(gy_nrmcts,aes(condition, AVERAGE)) +
   theme_bw() +   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Green yellow module expression")
 
-#PC1 PC2 top 100
+#PC1 PC2 top loading genes
 PC1 <- read.csv('C:/Users/imura/Documents/grad_5/RNA_paper/top_500_PC1_loadings.csv', sep = ",", header = TRUE, stringsAsFactors = FALSE)
 PC2 <- read.csv('C:/Users/imura/Documents/grad_5/RNA_paper/top_500_PC2_loadings.csv', sep = ",", header = TRUE, stringsAsFactors = FALSE)
 
@@ -266,7 +268,7 @@ ggplot() +
   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("PC1-correlated vs. PC2-correlated expression")
 
-#ushape and MB
+#Media-linked expression and mushroom body proportional volume together
 df <- read.csv("C:/Users/imura/Documents/old_csv_downloads/Eva_Atta.csv", sep = ",", header = TRUE, stringsAsFactors = FALSE)
 
 ggplot() +
@@ -276,6 +278,7 @@ ggplot() +
   theme(text = element_text(size=20)) +
   xlab("Worker size") + ylab("Media-linked expression vs. mushroom body proportional volume")
 
+#to instead combine in post
 parOrig <- par()
 par(bg=NA)
 ggplot() +
